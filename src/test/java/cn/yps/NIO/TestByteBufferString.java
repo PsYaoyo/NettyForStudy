@@ -1,6 +1,7 @@
 package cn.yps.NIO;
 
 import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
 import java.nio.charset.StandardCharsets;
 
 public class TestByteBufferString
@@ -20,7 +21,7 @@ public class TestByteBufferString
 
         // 转化为字符串
         String string = StandardCharsets.UTF_8.decode(byteBuffer2).toString();
-        System.out.println(string); //不需要操作flip buffer2  buffer3 都是直接切换到读模式的
+        System.out.println(string); //不需要操作flip buffer2  buffer3 都是直接切换到读模式的(其实源码中就是看position有没有到0)
 
         byteBuffer1.flip();  //buffer1需要加上flip() 因为put的时候还是在写模式
         String string1 = StandardCharsets.UTF_8.decode(byteBuffer1).toString();
