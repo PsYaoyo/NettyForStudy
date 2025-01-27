@@ -1,4 +1,6 @@
-package cn.yps.NIO;
+package cn.yps.NIO.bytebuffer;
+
+import cn.yps.utils.HexShowUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
@@ -11,6 +13,7 @@ public class TestByteBufferString
         //1 字符串转byteBuffer
         ByteBuffer byteBuffer1 = ByteBuffer.allocate(16);
         byteBuffer1.put("abcd1234".getBytes());
+        HexShowUtils.showHexForByteBuffer(byteBuffer1);
 
         //2 Charset
         ByteBuffer byteBuffer2 = StandardCharsets.UTF_8.encode("abcd1234");

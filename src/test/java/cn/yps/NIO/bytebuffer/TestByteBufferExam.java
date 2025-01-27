@@ -1,4 +1,6 @@
-package cn.yps.NIO;
+package cn.yps.NIO.bytebuffer;
+
+import cn.yps.utils.HexShowUtils;
 
 import java.nio.ByteBuffer;
 
@@ -12,8 +14,10 @@ public class TestByteBufferExam
         //场景：黏包 半包
         ByteBuffer source = ByteBuffer.allocate(64);
         source.put("Hello,World\nI'm YPS\nIt's a fuc".getBytes());
+        HexShowUtils.showHexForByteBuffer(source);
         handle(source);
         source.put("king good day that will go home\n".getBytes());
+        HexShowUtils.showHexForByteBuffer(source);
         handle(source);
 
     }
