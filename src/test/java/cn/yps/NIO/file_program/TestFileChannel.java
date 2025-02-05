@@ -1,16 +1,20 @@
 package cn.yps.NIO.file_program;
 
 import cn.yps.utils.HexShowUtils;
+import cn.yps.utils.RandomPassWordUtils;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 public class TestFileChannel
 {
-    //FileChannel 主要用来进行文件读写操作，阻塞模式下的
+    //FileChannel 主要用来进行文件读写操作，阻塞模式下的 FileChannel.open(path,mode)
     //文件操作的话 只能通过io的文件流来读取，之后使用getChannel方法获取
     //常用获取文件操作 1、FileInputStream 只读
     //2、FileOutputStream 只写
@@ -38,5 +42,24 @@ public class TestFileChannel
         }
 
 
+    }
+
+    @Test
+    public void recordPassword()
+    {
+        int passWordLength = 3;
+        String PATH = "D:\\02File\\Mine\\password.txt";
+        String password = RandomPassWordUtils.getRandomPassword(passWordLength);
+        System.out.println(password);
+        ByteBuffer source = ByteBuffer.allocate(password.length());
+        source.put(password.getBytes());
+        HexShowUtils.showHexForByteBuffer(source);
+        try (FileChannel fileChannel = FileChannel.open(Paths.get(PATH), StandardOpenOption.APPEND))
+        {
+            source.flip();
+            long write = fileChannel.write(source);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
